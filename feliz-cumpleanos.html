@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Cumpleaños</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #fff2d8;
+      --text: #5a4032;
+      --accent: #d28a3d;
+      --rose: #c94f63;
+      --blue: #5d8fc9;
+      --green: #75a86b;
+      --shadow: rgba(88, 59, 35, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.42), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    .party-burst {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .balloon,
+    .confetti {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      opacity: 0;
+      animation: party-explode var(--duration, 2800ms) cubic-bezier(0.16, 0.84, 0.31, 1) forwards;
+      animation-delay: var(--delay, 0ms);
+    }
+
+    .balloon {
+      color: var(--color, var(--rose));
+      font-size: var(--size, 34px);
+      line-height: 1;
+      transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+      text-shadow: 0 8px 16px rgba(88, 59, 35, 0.14);
+    }
+
+    .confetti {
+      width: var(--size, 10px);
+      height: calc(var(--size, 10px) * 0.55);
+      border-radius: 2px;
+      background: var(--color, var(--accent));
+      transform: translate(-50%, -50%) scale(0.35) rotate(0deg);
+      box-shadow: 0 6px 12px rgba(88, 59, 35, 0.1);
+    }
+
+    @keyframes party-explode {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.18) rotate(0deg);
+      }
+
+      12% {
+        opacity: 1;
+      }
+
+      78% {
+        opacity: 0.92;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+          scale(var(--end-scale, 1))
+          rotate(var(--rotation, 180deg));
+      }
+    }
+
+    .birthday-page {
+      width: min(100%, 430px);
+      min-height: 100svh;
+      margin: 0 auto;
+      padding: clamp(24px, 6vh, 48px) 24px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      align-self: flex-start;
+      margin-bottom: 16px;
+      color: rgba(90, 64, 50, 0.8);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    .birthday-title {
+      max-width: 340px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.55rem, 12vw, 4rem);
+      font-weight: 600;
+      line-height: 1;
+      color: #5a3f2f;
+    }
+
+    .birthday-title span {
+      display: block;
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .birthday-text {
+      width: min(100%, 345px);
+      margin-top: 18px;
+      font-size: clamp(1.2rem, 5.1vw, 1.52rem);
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .photo-grid {
+      width: min(100%, 350px);
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .birthday-photo {
+      aspect-ratio: 4 / 5;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 14px 30px var(--shadow);
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .birthday-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .birthday-letter {
+      width: min(100%, 350px);
+      margin-top: 24px;
+      text-align: left;
+      font-size: clamp(1.08rem, 4.7vw, 1.32rem);
+      font-weight: 500;
+      line-height: 1.42;
+    }
+
+    .birthday-letter p + p {
+      margin-top: 0.9em;
+    }
+
+    .birthday-note {
+      width: min(100%, 340px);
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(90, 64, 50, 0.16);
+      font-size: clamp(1.12rem, 4.8vw, 1.35rem);
+      line-height: 1.42;
+    }
+
+    @media (max-height: 700px) {
+      .birthday-page {
+        justify-content: flex-start;
+      }
+
+      .birthday-title {
+        font-size: clamp(2.25rem, 10.5vw, 3.35rem);
+      }
+
+      .photo-grid {
+        margin-top: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="party-burst" aria-hidden="true"></div>
+
+  <main class="birthday-page" aria-label="Pagina de feliz cumpleaños">
+    <a class="back-link" href="index.html">Volver</a>
+
+    <h1 class="birthday-title">Feliz <span>Cumpleaños</span> Mi Amor</h1>
+
+    <p class="birthday-text">
+      Hoy celebro tu vida, tu risa y todo lo lindo que haces crecer a mi lado.
+    </p>
+
+    <section class="photo-grid" aria-label="Fotos de cumpleaños">
+      <figure class="birthday-photo">
+        <img src="assets/foto1.jpeg" alt="Foto especial de cumpleaños" />
+      </figure>
+      <figure class="birthday-photo">
+        <img src="assets/foto2.jpeg" alt="Recuerdo especial de cumpleaños" />
+      </figure>
+    </section>
+
+    <section class="birthday-letter" aria-label="Mensaje de cumpleaños">
+      <p>
+        Hola mi Amor. Sé que estás acostumbrada a que tus cumpleaños te mande un mensajito diciéndote lo mucho que te amo y lo feliz que me haces, este no es la excepción, pero quise hacerlo un poquito más a mi estilo y con un poco más de trabajo.
+      </p>
+      <p>
+        Feliz Cumpleaños mi amor, un año más bebé, un año en el que aprendiste mucho, lograste muchas cosas, un año en el que fuiste feliz unos días y triste otros, pero un año más que pasamos juntos, un año más que gracias a vos yo fui feliz e intenté hacerte feliz a vos, todos y cada uno de los días.
+      </p>
+      <p>
+        Te amo con todo mi corazón, y quiero que seas la persona más feliz del mundo en tu día, y espero poder aportar mi granito de arena a la causa, pero, yo sé que vos no cumplís años un día, cumplís una semana! Así que espero poder ayudar a tu felicidad toda la semana! jajaja. Tu primer regalo fue la plata del celu... aún quedaban tres sorpresas, la primera es esta, la segunda y la tercera ya las verás...
+      </p>
+      <p>
+        Pero la tercer sorpresa, la hice con mucho esmero y dedicación, pero sobre todo con mucho amor y sentimiento... Feliz cumpleaños amor, te amo.
+      </p>
+    </section>
+
+    <p class="birthday-note">
+      Que este nuevo año te encuentre rodeada de amor, abrazos y momentos que se queden para siempre.
+    </p>
+  </main>
+
+  <script>
+    const partyLayer = document.querySelector(".party-burst");
+    const partyColors = ["#c94f63", "#d28a3d", "#5d8fc9", "#75a86b", "#f2c94c", "#9a6dd7"];
+
+    function addPartyPiece(className, content, index) {
+      const piece = document.createElement("span");
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 120 + Math.random() * 300;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+
+      piece.className = className;
+      piece.innerHTML = content;
+      piece.style.setProperty("--x", `${x}px`);
+      piece.style.setProperty("--y", `${y}px`);
+      piece.style.setProperty("--size", `${className === "balloon" ? 30 + Math.random() * 30 : 8 + Math.random() * 12}px`);
+      piece.style.setProperty("--duration", `${2600 + Math.random() * 1300}ms`);
+      piece.style.setProperty("--delay", `${Math.random() * 230}ms`);
+      piece.style.setProperty("--rotation", `${-300 + Math.random() * 600}deg`);
+      piece.style.setProperty("--end-scale", `${0.7 + Math.random() * 0.85}`);
+      piece.style.setProperty("--color", partyColors[index % partyColors.length]);
+
+      partyLayer.appendChild(piece);
+    }
+
+    function createPartyBurst() {
+      for (let index = 0; index < 28; index += 1) {
+        addPartyPiece("balloon", "&#127880;", index);
+      }
+
+      for (let index = 0; index < 72; index += 1) {
+        addPartyPiece("confetti", "", index);
+      }
+
+      window.setTimeout(() => {
+        partyLayer.innerHTML = "";
+      }, 4400);
+    }
+
+    window.addEventListener("load", createPartyBurst);
+  </script>
+</body>
+</html>

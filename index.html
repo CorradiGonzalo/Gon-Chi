@@ -183,6 +183,22 @@
       font-weight: 500;
       line-height: 1.1;
       color: #5a3f2f;
+      text-decoration: none;
+      border: 1px solid rgba(91, 70, 54, 0.18);
+      border-radius: 999px;
+      padding: 7px 18px 9px;
+      background: rgba(255, 250, 241, 0.36);
+      box-shadow: 0 8px 20px rgba(88, 59, 35, 0.08);
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .love-note:active {
+      transform: scale(0.97);
+    }
+
+    .love-note:hover {
+      background: rgba(255, 250, 241, 0.58);
+      box-shadow: 0 10px 24px rgba(88, 59, 35, 0.12);
     }
 
     @media (max-height: 700px) {
@@ -226,7 +242,7 @@
 
     <footer class="closing" aria-label="Cierre">
       <div class="heart" aria-hidden="true">♥</div>
-      <div class="love-note">Te Amo</div>
+      <a class="love-note" href="feliz-cumpleanos.html">Te Amo</a>
     </footer>
   </main>
 
