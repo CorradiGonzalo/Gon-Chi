@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gon & Chi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f5e6ca;
+      --text: #5b4636;
+      --accent: #c9863a;
+      --heart: #b9312f;
+      --shadow: rgba(88, 59, 35, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .invitation {
+      width: min(100%, 430px);
+      min-height: 100svh;
+      padding: clamp(18px, 5vh, 42px) 26px clamp(24px, 5vh, 42px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .heart-burst {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .burst-heart {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      color: var(--burst-color, #c63744);
+      font-size: var(--heart-size, 22px);
+      line-height: 1;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.15) rotate(0deg);
+      text-shadow: 0 7px 16px rgba(111, 39, 35, 0.16);
+      animation: explode-heart var(--duration, 2700ms) cubic-bezier(0.16, 0.84, 0.31, 1) forwards;
+      animation-delay: var(--delay, 0ms);
+    }
+
+    @keyframes explode-heart {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.15) rotate(0deg);
+      }
+
+      12% {
+        opacity: 1;
+      }
+
+      72% {
+        opacity: 0.86;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+          scale(var(--end-scale, 1))
+          rotate(var(--rotation, 120deg));
+      }
+    }
+
+    .music-toggle {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(91, 70, 54, 0.22);
+      border-radius: 50%;
+      background: rgba(255, 250, 241, 0.72);
+      color: var(--heart);
+      box-shadow: 0 10px 24px rgba(88, 59, 35, 0.13);
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .music-toggle.is-playing {
+      background: rgba(185, 49, 47, 0.1);
+    }
+
+    .photo-frame {
+      width: min(78vw, 310px);
+      aspect-ratio: 4 / 3;
+      margin-bottom: clamp(18px, 4vh, 28px);
+      border-radius: 7px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px var(--shadow);
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .names {
+      margin-bottom: clamp(18px, 3.8vh, 30px);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.25rem, 11vw, 3.35rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0;
+      color: #5a3f2f;
+    }
+
+    .names .ampersand {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .message {
+      width: min(100%, 340px);
+      font-size: clamp(1.25rem, 5.3vw, 1.6rem);
+      font-weight: 500;
+      line-height: 1.48;
+      color: var(--text);
+    }
+
+    .message p + p {
+      margin-top: 0.55em;
+    }
+
+    .closing {
+      margin-top: clamp(18px, 4vh, 30px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #513c30;
+    }
+
+    .heart {
+      font-size: clamp(1.2rem, 5vw, 1.55rem);
+      line-height: 1;
+      color: var(--heart);
+    }
+
+    .love-note {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.25rem, 5.4vw, 1.7rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: #5a3f2f;
+    }
+
+    @media (max-height: 700px) {
+      .photo-frame {
+        width: min(64vw, 250px);
+        margin-bottom: 16px;
+      }
+
+      .names {
+        margin-bottom: 14px;
+      }
+
+      .message {
+        font-size: clamp(1.08rem, 4.7vw, 1.28rem);
+        line-height: 1.38;
+      }
+
+      .closing {
+        margin-top: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="heart-burst" aria-hidden="true"></div>
+
+  <main class="invitation" aria-label="Dedicatoria romántica para Gon y Chi">
+    <figure class="photo-frame">
+      <img src="assets/GonChi.jpeg" alt="Foto de Gon y Chi" />
+    </figure>
+
+    <h1 class="names">Gon <span class="ampersand">&amp;</span> Chi</h1>
+
+    <section class="message" aria-label="Mensaje principal">
+      <p>En una leyenda japonesa.</p>
+      <p>Dice que dos personas destinadas a encontrarse están unidas por un hilo rojo invisible.</p>
+      <p>Puede estirarse, enredarse o perderse entre los caminos de la vida...</p>
+      <p>pero nunca se rompe.</p>
+      <p>Me alegra que mi hilo rojo me haya llevado hasta</p>
+    </section>
+
+    <footer class="closing" aria-label="Cierre">
+      <div class="heart" aria-hidden="true">♥</div>
+      <div class="love-note">Te Amo</div>
+    </footer>
+  </main>
+
+  <button class="music-toggle" type="button" aria-label="Reproducir canción">♪</button>
+  <audio id="romantic-song" src="mi-mundo-entero-sofia-mora.mp3" preload="auto" loop></audio>
+
+  <script>
+    const burstLayer = document.querySelector(".heart-burst");
+    const musicButton = document.querySelector(".music-toggle");
+    const song = document.querySelector("#romantic-song");
+    const heartColors = ["#b9312f", "#d34b56", "#e36f83", "#c9863a", "#f0a6ad"];
+
+    function createHeartBurst() {
+      const totalHearts = 52;
+
+      for (let index = 0; index < totalHearts; index += 1) {
+        const heart = document.createElement("span");
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 110 + Math.random() * 270;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+
+        heart.className = "burst-heart";
+        heart.textContent = "♥";
+        heart.style.setProperty("--x", `${x}px`);
+        heart.style.setProperty("--y", `${y}px`);
+        heart.style.setProperty("--heart-size", `${24 + Math.random() * 34}px`);
+        heart.style.setProperty("--duration", `${2600 + Math.random() * 1200}ms`);
+        heart.style.setProperty("--delay", `${Math.random() * 220}ms`);
+        heart.style.setProperty("--rotation", `${-240 + Math.random() * 480}deg`);
+        heart.style.setProperty("--end-scale", `${0.65 + Math.random() * 0.95}`);
+        heart.style.setProperty("--burst-color", heartColors[index % heartColors.length]);
+
+        burstLayer.appendChild(heart);
+      }
+
+      window.setTimeout(() => {
+        burstLayer.innerHTML = "";
+      }, 4300);
+    }
+
+    async function playSong() {
+      try {
+        await song.play();
+        musicButton.classList.add("is-playing");
+        musicButton.setAttribute("aria-label", "Pausar canción");
+      } catch {
+        musicButton.classList.remove("is-playing");
+      }
+    }
+
+    musicButton.addEventListener("click", async () => {
+      if (song.paused) {
+        await playSong();
+        return;
+      }
+
+      song.pause();
+      musicButton.classList.remove("is-playing");
+      musicButton.setAttribute("aria-label", "Reproducir canción");
+    });
+
+    window.addEventListener("load", () => {
+      createHeartBurst();
+      playSong();
+    });
+  </script>
+</body>
+</html>
